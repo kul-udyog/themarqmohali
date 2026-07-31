@@ -138,25 +138,25 @@
     playButton.classList.remove("hidden");
   });
 
-  /* ---------- Lightbox ---------- */
-  var lightbox = document.getElementById("lightbox");
-  var lightboxImg = document.getElementById("lightboxImg");
-  var lightboxClose = document.getElementById("lightboxClose");
-  document.querySelectorAll("[data-lightbox]").forEach(function (btn) {
-    btn.addEventListener("click", function () {
-      lightboxImg.src = btn.getAttribute("data-lightbox");
-      lightboxImg.alt = btn.querySelector("img").alt;
-      lightbox.classList.add("open");
-    });
-  });
-  function closeLightbox() { lightbox.classList.remove("open"); lightboxImg.src = ""; }
-  lightboxClose.addEventListener("click", closeLightbox);
-  lightbox.addEventListener("click", function (e) {
-    if (e.target === lightbox) closeLightbox();
-  });
+  /* ---------- Sticky mobile CTA ---------- */
+  var stickyCta = document.getElementById("stickyCta");
+  var enquireSection = document.getElementById("enquire");
+  if (stickyCta) {
+    stickyCta.classList.add("show");
+    if ("IntersectionObserver" in window) {
+      var stickyIo = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.target === enquireSection) {
+            stickyCta.classList.toggle("show", !entry.isIntersecting);
+          }
+        });
+      }, { threshold: 0.15 });
+      stickyIo.observe(enquireSection);
+    }
+  }
 
   /* ---------- Scroll reveal ---------- */
-  var revealTargets = document.querySelectorAll(".section, .highlight-card, .gallery-item");
+  var revealTargets = document.querySelectorAll(".section, .highlight-card");
   if ("IntersectionObserver" in window) {
     var io = new IntersectionObserver(function (entries) {
       entries.forEach(function (entry) {

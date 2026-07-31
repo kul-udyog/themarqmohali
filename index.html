@@ -74,10 +74,6 @@
         "addressLocality": "Mohali",
         "addressRegion": "Punjab",
         "addressCountry": "IN"
-      },
-      "developer": {
-        "@type": "Organization",
-        "name": "Krishna Builders and Developers"
       }
     }
   ]
@@ -103,7 +99,6 @@
       <a href="#overview">Overview</a>
       <a href="#location">Location</a>
       <a href="#highlights">Highlights</a>
-      <a href="#gallery">Gallery</a>
       <a href="#faq">FAQ</a>
     </nav>
 
@@ -118,7 +113,6 @@
     <a href="#overview">Overview</a>
     <a href="#location">Location</a>
     <a href="#highlights">Highlights</a>
-    <a href="#gallery">Gallery</a>
     <a href="#faq">FAQ</a>
     <button class="btn btn-gold" data-open-modal>Enquire Now</button>
   </div>
@@ -132,9 +126,11 @@
   <div class="hero-scrim"></div>
 
   <div class="hero-content">
-    <p class="eyebrow">Introducing</p>
-    <h1 class="hero-title">The MARQ<span class="by-line">by Atlantis</span></h1>
-    <p class="hero-tagline">The Most Dominant Address of Punjab</p>
+    <div class="hero-text">
+      <p class="eyebrow">Introducing</p>
+      <h1 class="hero-title">The MARQ<span class="by-line">by Atlantis</span></h1>
+      <p class="hero-tagline">The Most Dominant Address of Punjab</p>
+    </div>
     <div class="hero-actions">
       <button class="btn btn-gold" data-open-modal>Enquire Now</button>
       <a href="#overview" class="btn btn-ghost">Discover More</a>
@@ -261,25 +257,6 @@
   </div>
 </section>
 
-<!-- ================= GALLERY ================= -->
-<section class="section gallery" id="gallery">
-  <div class="container">
-    <p class="eyebrow">Brand Gallery</p>
-    <h2 class="section-title section-title-light">The Marq, in its own language.</h2>
-  </div>
-  <div class="gallery-grid">
-    <button class="gallery-item" data-lightbox="assets/images/brand-cover.jpg" aria-label="Open image">
-      <img src="assets/images/brand-cover.jpg" alt="The Most Dominant Address of Punjab" loading="lazy" width="1170" height="1463">
-    </button>
-    <button class="gallery-item" data-lightbox="assets/images/brand-panther.jpg" aria-label="Open image">
-      <img src="assets/images/brand-panther.jpg" alt="The Marq by Atlantis brand mark" loading="lazy" width="1170" height="1460">
-    </button>
-    <button class="gallery-item" data-lightbox="assets/images/logo-lockup.jpg" aria-label="Open image">
-      <img src="assets/images/logo-lockup.jpg" alt="Crown Location — The Marq, Aerocity Mohali" loading="lazy" width="1170" height="1463">
-    </button>
-  </div>
-</section>
-
 <!-- ================= WHY THE MARQ ================= -->
 <section class="section why">
   <div class="container why-grid">
@@ -291,22 +268,8 @@
       <li><span>01</span> A frontage address on Airport Road, inside Aerocity's master plan</li>
       <li><span>02</span> A brand identity built for distinction, not imitation</li>
       <li><span>03</span> Contemporary architecture designed around presence and proportion</li>
-      <li><span>04</span> Developed by Krishna Builders and Developers — with clear intent</li>
+      <li><span>04</span> A landmark in the making, at an approx. 3.4 acre site</li>
     </ul>
-  </div>
-</section>
-
-<!-- ================= ABOUT DEVELOPER ================= -->
-<section class="section about">
-  <div class="container about-inner">
-    <p class="eyebrow eyebrow-dark">About the Developer</p>
-    <h2 class="section-title">Krishna Builders and Developers</h2>
-    <p class="body-text">
-      The Marq by Atlantis is developed by Krishna Builders and Developers, spread across
-      an approximate 3.4 acres on Airport Road, Aerocity, Mohali. Further verified
-      information about the developer will be added to this page as it is officially
-      released.
-    </p>
   </div>
 </section>
 
@@ -337,13 +300,6 @@
           <span class="faq-toggle"></span>
         </button>
         <div class="faq-a"><p>Configuration details have not been officially released yet. Register your interest below and we'll share verified details as soon as they're announced.</p></div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-q" aria-expanded="false">
-          Is this the official website of The Marq by Atlantis?
-          <span class="faq-toggle"></span>
-        </button>
-        <div class="faq-a"><p>This is an independent information and enquiry site. It is not the developer's official website. Enquiries submitted here are followed up by our team.</p></div>
       </div>
       <div class="faq-item">
         <button class="faq-q" aria-expanded="false">
@@ -401,7 +357,6 @@
       <a href="#overview">Overview</a>
       <a href="#location">Location</a>
       <a href="#highlights">Highlights</a>
-      <a href="#gallery">Gallery</a>
       <a href="#faq">FAQ</a>
       <a href="privacy-policy.html">Privacy Policy</a>
       <a href="terms.html">Terms</a>
@@ -451,12 +406,6 @@
   </div>
 </div>
 
-<!-- ================= LIGHTBOX ================= -->
-<div class="lightbox" id="lightbox">
-  <button class="lightbox-close" id="lightboxClose" aria-label="Close">&times;</button>
-  <img id="lightboxImg" src="" alt="">
-</div>
-
 <!-- SVG sprite -->
 <svg style="display:none" aria-hidden="true">
   <symbol id="icon-crown" viewBox="0 0 48 48"><path d="M6 34h36l-3-16-8 7-7-12-7 12-8-7-3 16z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></symbol>
@@ -464,6 +413,11 @@
   <symbol id="icon-mark" viewBox="0 0 48 48"><circle cx="24" cy="24" r="16" fill="none" stroke="currentColor" stroke-width="2"/><path d="M17 27c3-1 5-4 5-7s2-6 5-7" fill="none" stroke="currentColor" stroke-width="2"/></symbol>
   <symbol id="icon-life" viewBox="0 0 48 48"><path d="M24 40s-14-9-14-20a8 8 0 0 1 14-5 8 8 0 0 1 14 5c0 11-14 20-14 20z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></symbol>
 </svg>
+
+<!-- ================= STICKY MOBILE CTA ================= -->
+<div class="sticky-cta" id="stickyCta">
+  <button class="btn btn-gold btn-block" data-open-modal>Enquire Now</button>
+</div>
 
 <script src="script.js" defer></script>
 </body>
