@@ -310,7 +310,7 @@ a { color: inherit; }
   object-position: center 22%;
 }
 @media (max-width: 640px) {
-  .hero-video { object-fit: contain; object-position: center; }
+  .hero-video { object-fit: cover; object-position: center; }
 }
 .hero-scrim {
   position: absolute;
