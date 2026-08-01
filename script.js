@@ -14,30 +14,42 @@
   window.addEventListener("scroll", onScroll, { passive: true });
   onScroll();
 
-  /* ---------- Mobile nav ---------- */
+  /* ---------- Mobile nav (with back-button-closes-menu-only pattern) ---------- */
   var navToggle = document.getElementById("navToggle");
   var mobileNav = document.getElementById("mobileNav");
   var mobileNavClose = document.getElementById("mobileNavClose");
+  var mobileNavOpenViaHistory = false;
   function openMobileNav() {
     mobileNav.classList.add("open");
     navToggle.setAttribute("aria-expanded", "true");
     document.body.style.overflow = "hidden";
+    if (!mobileNavOpenViaHistory) {
+      history.pushState({ marqNav: true }, "");
+      mobileNavOpenViaHistory = true;
+    }
   }
-  function closeMobileNav() {
+  function closeMobileNav(fromPopState) {
     mobileNav.classList.remove("open");
     navToggle.setAttribute("aria-expanded", "false");
     document.body.style.overflow = "";
+    if (mobileNavOpenViaHistory && !fromPopState) {
+      history.back();
+    }
+    mobileNavOpenViaHistory = false;
   }
   navToggle.addEventListener("click", function () {
-    if (mobileNav.classList.contains("open")) closeMobileNav();
+    if (mobileNav.classList.contains("open")) closeMobileNav(false);
     else openMobileNav();
   });
-  mobileNavClose.addEventListener("click", closeMobileNav);
+  mobileNavClose.addEventListener("click", function () { closeMobileNav(false); });
   mobileNav.querySelectorAll("a").forEach(function (a) {
-    a.addEventListener("click", closeMobileNav);
+    a.addEventListener("click", function () { closeMobileNav(false); });
+  });
+  window.addEventListener("popstate", function () {
+    if (mobileNav.classList.contains("open")) closeMobileNav(true);
   });
   document.addEventListener("keydown", function (e) {
-    if (e.key === "Escape" && mobileNav.classList.contains("open")) closeMobileNav();
+    if (e.key === "Escape" && mobileNav.classList.contains("open")) closeMobileNav(false);
   });
 
   /* ---------- Modal (with back-button-closes-modal-only pattern) ---------- */
@@ -63,7 +75,14 @@
     modalOpenViaHistory = false;
   }
   modalOpenTriggers.forEach(function (btn) {
-    btn.addEventListener("click", openModal);
+    btn.addEventListener("click", function () {
+      if (mobileNav.classList.contains("open")) {
+        mobileNav.classList.remove("open");
+        navToggle.setAttribute("aria-expanded", "false");
+        mobileNavOpenViaHistory = false;
+      }
+      openModal();
+    });
   });
   modalClose.addEventListener("click", function () { closeModal(false); });
   overlay.addEventListener("click", function (e) {
