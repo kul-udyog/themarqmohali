@@ -299,14 +299,14 @@ a { color: inherit; }
   display: flex;
   align-items: flex-end;
   overflow: hidden;
-  background: radial-gradient(ellipse at center, var(--wine-deep) 0%, var(--ink) 75%);
+  background: var(--ink);
 }
 .hero-video {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
-  object-fit: contain;
+  object-fit: cover;
   object-position: center;
 }
 .hero-scrim {

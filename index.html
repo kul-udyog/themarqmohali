@@ -133,17 +133,20 @@
       <span></span><span></span><span></span>
     </button>
   </div>
-
-  <div class="mobile-nav" id="mobileNav">
-    <button class="mobile-nav-close" id="mobileNavClose" aria-label="Close menu">&times;</button>
-    <img class="mobile-nav-mark" src="assets/images/panther-mark.png" alt="" aria-hidden="true">
-    <a href="#overview">Overview</a>
-    <a href="#location">Location</a>
-    <a href="#highlights">Highlights</a>
-    <a href="#faq">FAQ</a>
-    <button class="btn btn-gold" data-open-modal>Enquire Now</button>
-  </div>
 </header>
+
+<!-- Kept outside <header> on purpose: backdrop-filter on the scrolled header
+     creates a new containing block for position:fixed descendants, which
+     broke this overlay's full-viewport sizing once scrolled. -->
+<div class="mobile-nav" id="mobileNav">
+  <button class="mobile-nav-close" id="mobileNavClose" aria-label="Close menu">&times;</button>
+  <img class="mobile-nav-mark" src="assets/images/panther-mark.png" alt="" aria-hidden="true">
+  <a href="#overview">Overview</a>
+  <a href="#location">Location</a>
+  <a href="#highlights">Highlights</a>
+  <a href="#faq">FAQ</a>
+  <button class="btn btn-gold" data-open-modal>Enquire Now</button>
+</div>
 
 <!-- ================= HERO ================= -->
 <section class="hero grain" id="top">
