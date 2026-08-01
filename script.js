@@ -23,6 +23,7 @@
     mobileNav.classList.add("open");
     navToggle.setAttribute("aria-expanded", "true");
     document.body.style.overflow = "hidden";
+    document.body.classList.add("nav-open");
     if (!mobileNavOpenViaHistory) {
       history.pushState({ marqNav: true }, "");
       mobileNavOpenViaHistory = true;
@@ -32,6 +33,7 @@
     mobileNav.classList.remove("open");
     navToggle.setAttribute("aria-expanded", "false");
     document.body.style.overflow = "";
+    document.body.classList.remove("nav-open");
     if (mobileNavOpenViaHistory && !fromPopState) {
       history.back();
     }
@@ -43,7 +45,16 @@
   });
   mobileNavClose.addEventListener("click", function () { closeMobileNav(false); });
   mobileNav.querySelectorAll("a").forEach(function (a) {
-    a.addEventListener("click", function () { closeMobileNav(false); });
+    a.addEventListener("click", function () {
+      // Close without popping history here — the anchor's own hash
+      // navigation already advances history, so calling history.back()
+      // in parallel would race against it and cancel the scroll.
+      mobileNav.classList.remove("open");
+      navToggle.setAttribute("aria-expanded", "false");
+      document.body.style.overflow = "";
+      document.body.classList.remove("nav-open");
+      mobileNavOpenViaHistory = false;
+    });
   });
   window.addEventListener("popstate", function () {
     if (mobileNav.classList.contains("open")) closeMobileNav(true);
@@ -79,6 +90,7 @@
       if (mobileNav.classList.contains("open")) {
         mobileNav.classList.remove("open");
         navToggle.setAttribute("aria-expanded", "false");
+        document.body.classList.remove("nav-open");
         mobileNavOpenViaHistory = false;
       }
       openModal();

@@ -243,7 +243,7 @@ a { color: inherit; }
 .mobile-nav {
   position: fixed;
   inset: 0;
-  z-index: 140;
+  z-index: 170;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -299,15 +299,15 @@ a { color: inherit; }
   display: flex;
   align-items: flex-end;
   overflow: hidden;
-  background: var(--ink);
+  background: radial-gradient(ellipse at center, var(--wine-deep) 0%, var(--ink) 75%);
 }
 .hero-video {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
-  object-fit: cover;
-  object-position: center 48%;
+  object-fit: contain;
+  object-position: center;
 }
 .hero-scrim {
   position: absolute;
@@ -739,6 +739,7 @@ a { color: inherit; }
 }
 .sticky-cta.show { transform: translateY(0); }
 .sticky-cta .btn { padding: 14px 24px; }
+body.nav-open .sticky-cta { transform: translateY(100%) !important; }
 @media (min-width: 641px) {
   .sticky-cta { display: none; }
 }
