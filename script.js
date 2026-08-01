@@ -17,15 +17,27 @@
   /* ---------- Mobile nav ---------- */
   var navToggle = document.getElementById("navToggle");
   var mobileNav = document.getElementById("mobileNav");
+  var mobileNavClose = document.getElementById("mobileNavClose");
+  function openMobileNav() {
+    mobileNav.classList.add("open");
+    navToggle.setAttribute("aria-expanded", "true");
+    document.body.style.overflow = "hidden";
+  }
+  function closeMobileNav() {
+    mobileNav.classList.remove("open");
+    navToggle.setAttribute("aria-expanded", "false");
+    document.body.style.overflow = "";
+  }
   navToggle.addEventListener("click", function () {
-    var isOpen = mobileNav.classList.toggle("open");
-    navToggle.setAttribute("aria-expanded", isOpen ? "true" : "false");
+    if (mobileNav.classList.contains("open")) closeMobileNav();
+    else openMobileNav();
   });
+  mobileNavClose.addEventListener("click", closeMobileNav);
   mobileNav.querySelectorAll("a").forEach(function (a) {
-    a.addEventListener("click", function () {
-      mobileNav.classList.remove("open");
-      navToggle.setAttribute("aria-expanded", "false");
-    });
+    a.addEventListener("click", closeMobileNav);
+  });
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "Escape" && mobileNav.classList.contains("open")) closeMobileNav();
   });
 
   /* ---------- Modal (with back-button-closes-modal-only pattern) ---------- */
