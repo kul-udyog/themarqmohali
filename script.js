@@ -198,6 +198,34 @@
     }
   }
 
+  /* ---------- Lightbox (floor plans) ---------- */
+  var lightbox = document.getElementById("lightbox");
+  var lightboxImg = document.getElementById("lightboxImg");
+  var lightboxCaption = document.getElementById("lightboxCaption");
+  var lightboxClose = document.getElementById("lightboxClose");
+  document.querySelectorAll("[data-lightbox]").forEach(function (el) {
+    el.addEventListener("click", function () {
+      lightboxImg.src = el.getAttribute("data-lightbox");
+      var caption = el.getAttribute("data-lightbox-caption") || "";
+      lightboxImg.alt = caption;
+      lightboxCaption.textContent = caption;
+      lightbox.classList.add("open");
+      document.body.style.overflow = "hidden";
+    });
+  });
+  function closeLightbox() {
+    lightbox.classList.remove("open");
+    lightboxImg.src = "";
+    document.body.style.overflow = "";
+  }
+  lightboxClose.addEventListener("click", closeLightbox);
+  lightbox.addEventListener("click", function (e) {
+    if (e.target === lightbox) closeLightbox();
+  });
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "Escape" && lightbox.classList.contains("open")) closeLightbox();
+  });
+
   /* ---------- Scroll reveal ---------- */
   var revealTargets = document.querySelectorAll(".section, .highlight-card");
   if ("IntersectionObserver" in window) {
