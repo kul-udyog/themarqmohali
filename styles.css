@@ -538,6 +538,64 @@ a { color: inherit; }
   .highlight-grid { grid-template-columns: 1fr; }
 }
 
+/* ---------- Configurations ---------- */
+.configs { background: #fff; }
+.config-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  margin: 44px 0 36px;
+}
+.config-card {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 30px 22px;
+  border: 1px solid #ece5d8;
+  border-bottom: 3px solid var(--gold);
+  border-radius: var(--radius);
+  transition: transform .4s var(--ease), box-shadow .4s var(--ease);
+}
+.config-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 24px 48px -24px rgba(61,14,24,.25);
+}
+.config-card-feature {
+  background: var(--wine);
+  border-color: var(--wine);
+}
+.config-type {
+  font-family: var(--font-display);
+  font-size: 26px;
+  color: var(--ink);
+}
+.config-card-feature .config-type { color: var(--ivory); }
+.config-size {
+  font-size: 15px;
+  color: #555;
+  font-weight: 600;
+}
+.config-card-feature .config-size { color: var(--gold-bright); }
+.config-towers {
+  font-size: 12px;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--wine-accent);
+}
+.config-card-feature .config-towers { color: var(--ivory-dim); }
+.config-note {
+  font-size: 14px;
+  color: #666;
+  max-width: 60ch;
+  margin: 0 0 22px;
+}
+@media (max-width: 900px) {
+  .config-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 520px) {
+  .config-grid { grid-template-columns: 1fr; }
+}
+
 /* ---------- Why ---------- */
 .why { background: var(--ivory); }
 .why-grid {
