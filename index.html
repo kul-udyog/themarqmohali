@@ -37,7 +37,11 @@
 <link rel="preload" as="image" href="assets/images/hero-poster.jpg" media="(min-width: 641px)">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<!-- Fonts loaded async (preload + swap to non-blocking media) so they don't delay first paint;
+     font-display:swap in the URL already avoids invisible-text flash while they arrive. -->
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Inter:wght@400;500;600;700&display=swap">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+<noscript><link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"></noscript>
 <link rel="stylesheet" href="styles.css">
 
 <script type="application/ld+json">
@@ -144,7 +148,7 @@
 <header class="site-header" id="siteHeader">
   <div class="header-inner">
     <a href="#top" class="brand" aria-label="The Marq by Atlantis — home">
-      <img class="brand-mark" src="assets/images/panther-mark.png" alt="" aria-hidden="true">
+      <img class="brand-mark" src="assets/images/panther-mark.png" alt="" aria-hidden="true" width="427" height="269">
       <span class="brand-text">
         <span class="brand-the">The</span>
         <span class="brand-marq">MARQ</span>
@@ -173,7 +177,7 @@
      broke this overlay's full-viewport sizing once scrolled. -->
 <div class="mobile-nav" id="mobileNav">
   <button class="mobile-nav-close" id="mobileNavClose" aria-label="Close menu">&times;</button>
-  <img class="mobile-nav-mark" src="assets/images/panther-mark.png" alt="" aria-hidden="true">
+  <img class="mobile-nav-mark" src="assets/images/panther-mark.png" alt="" aria-hidden="true" width="427" height="269">
   <a href="#overview">Overview</a>
   <a href="#location">Location</a>
   <a href="#highlights">Highlights</a>
@@ -237,9 +241,9 @@
     </div>
     <div class="overview-visual">
       <div class="plate">
-        <img src="assets/images/brand-cover.jpg" alt="The Marq by Atlantis — The Most Dominant Address of Punjab" loading="lazy" width="1170" height="1463">
+        <img src="assets/images/brand-cover.jpg" alt="The Marq by Atlantis — The Most Dominant Address of Punjab" loading="lazy" width="680" height="850">
       </div>
-      <img class="panther-float" src="assets/images/panther-mark.png" alt="">
+      <img class="panther-float" src="assets/images/panther-mark.png" alt="" width="427" height="269">
     </div>
   </div>
 </section>
@@ -257,7 +261,7 @@
   </div>
 
   <div class="location-visual">
-    <img src="assets/images/logo-lockup.jpg" alt="The Marq by Atlantis location map — PR-7 Airport Road, Block-B, GMADA Aerocity, Sector 82, Mohali" loading="lazy" width="1170" height="1463">
+    <img src="assets/images/logo-lockup.jpg" srcset="assets/images/logo-lockup-mobile.jpg 740w, assets/images/logo-lockup.jpg 1170w" sizes="(max-width: 700px) 100vw, 640px" alt="The Marq by Atlantis location map — PR-7 Airport Road, Block-B, GMADA Aerocity, Sector 82, Mohali" loading="lazy" width="1170" height="1463">
   </div>
 
   <div class="container">
@@ -282,6 +286,7 @@
     <p class="location-note">
       Location details reflect the developer's published site plan. Distances and connectivity
       claims will be added once officially confirmed.
+      <a href="guides/gmada-aerocity-explained.html" style="color: var(--gold);">Read our guide to how GMADA Aerocity is zoned &rarr;</a>
     </p>
   </div>
 </section>
@@ -296,6 +301,15 @@
     <video id="showcaseVideo" playsinline preload="none" poster="assets/images/showcase-poster.jpg">
       <source src="assets/videos/celebrating-life-web.mp4" type="video/mp4">
     </video>
+    <script>
+      // Poster loads eagerly regardless of preload="none", so serve a smaller
+      // crop on mobile rather than the full desktop-width still.
+      (function () {
+        var v = document.getElementById('showcaseVideo');
+        var isMobile = window.matchMedia('(max-width: 640px)').matches;
+        v.poster = isMobile ? 'assets/images/showcase-poster-mobile.jpg' : 'assets/images/showcase-poster.jpg';
+      })();
+    </script>
     <button class="play-button" id="playButton" aria-label="Play video">
       <svg viewBox="0 0 24 24" width="28" height="28"><path d="M8 5v14l11-7z" fill="currentColor"/></svg>
     </button>
@@ -585,7 +599,7 @@
 <footer class="site-footer">
   <div class="container footer-grid">
     <div class="footer-brand">
-      <img class="brand-mark" src="assets/images/panther-mark.png" alt="" aria-hidden="true">
+      <img class="brand-mark" src="assets/images/panther-mark.png" alt="" aria-hidden="true" width="427" height="269">
       <span class="brand-text"><span class="brand-the">The</span><span class="brand-marq">MARQ</span></span>
     </div>
     <nav class="footer-nav">
@@ -595,6 +609,7 @@
       <a href="#amenities">Amenities</a>
       <a href="#configs">Residences</a>
       <a href="#faq">FAQ</a>
+      <a href="guides/gmada-aerocity-explained.html">GMADA Aerocity Guide</a>
       <a href="privacy-policy.html">Privacy Policy</a>
       <a href="terms.html">Terms</a>
     </nav>
