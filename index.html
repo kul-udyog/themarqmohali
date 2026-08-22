@@ -124,7 +124,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         {
           "@type": "Question",
           "name": "How can I get pricing or brochure details for The Marq by Atlantis?",
-          "acceptedAnswer": { "@type": "Answer", "text": "Layouts for each configuration are available to view in the Residences section above. For pricing and a full brochure, share your details via the Enquire Now form and our team will reach out." }
+          "acceptedAnswer": { "@type": "Answer", "text": "Layouts for each configuration are available to view in the Residences section above. Use the Download Brochure button to request the full brochure, or Enquire for Pricing for an exact quote — our team will follow up with verified details." }
         },
         {
           "@type": "Question",
@@ -196,6 +196,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <a href="#configs">Residences</a>
   <a href="#faq">FAQ</a>
   <button class="btn btn-gold" data-open-modal>Enquire Now</button>
+  <button class="btn btn-ghost" data-open-modal data-cta="brochure">Download Brochure</button>
 </div>
 
 <!-- ================= HERO ================= -->
@@ -221,6 +222,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </div>
     <div class="hero-actions">
       <button class="btn btn-gold" data-open-modal>Enquire Now</button>
+      <button class="btn btn-ghost" data-open-modal data-cta="brochure">Download Brochure</button>
       <a href="#overview" class="btn btn-ghost">Discover More</a>
     </div>
   </div>
@@ -458,7 +460,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       preferred unit. Not sure which tower has which configuration? See our
       <a href="guides/configurations-floor-plans-guide.html" style="color: var(--gold);">full configurations &amp; floor plans guide &rarr;</a>
     </p>
-    <button class="btn btn-gold" data-open-modal>Enquire for Pricing</button>
+    <button class="btn btn-gold" data-open-modal data-cta="pricing">Enquire for Pricing</button>
   </div>
 </section>
 
@@ -471,6 +473,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       Four towers set around a landscaped podium, with SCO retail fronting the
       internal road — see how it all comes together.
     </p>
+    <button class="btn btn-gold" data-open-modal data-cta="pricing">Request Pricing</button>
   </div>
   <div class="plan-gallery">
     <button class="plan-thumb" data-lightbox="assets/images/plans/site-plan.jpg" data-lightbox-caption="Site Plan">
@@ -481,6 +484,40 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <img src="assets/images/plans/typical-floor-plan.jpg" alt="The Marq by Atlantis typical floor plan" loading="lazy" width="1600" height="1085">
       <span>Typical Floor Plan</span>
     </button>
+  </div>
+</section>
+
+<!-- ================= BROCHURE ================= -->
+<section class="section enquire grain" id="brochure">
+  <div class="container enquire-inner">
+    <p class="eyebrow">Full Brochure</p>
+    <h2 class="section-title section-title-light">Get the complete brochure.</h2>
+    <p class="enquire-sub">Share your details and our team will send you the full brochure — floor plans, specifications, and site details.</p>
+
+    <form class="lead-form" id="brochureForm" novalidate>
+      <input type="hidden" name="project" value="The Marq by Atlantis">
+      <input type="hidden" name="source" value="brochure-request">
+      <div class="field">
+        <label for="brochureName">Full Name</label>
+        <input type="text" id="brochureName" name="name" required autocomplete="name">
+      </div>
+      <div class="field">
+        <label for="brochureMobile">Mobile Number</label>
+        <input type="tel" id="brochureMobile" name="mobile" required autocomplete="tel">
+      </div>
+      <div class="field">
+        <label for="brochureEmail">Email <span class="optional">(optional)</span></label>
+        <input type="email" id="brochureEmail" name="email" autocomplete="email">
+      </div>
+      <button type="submit" class="btn btn-gold btn-block">Request Brochure</button>
+      <p class="form-note">By submitting, you agree to be contacted regarding The Marq by Atlantis.</p>
+    </form>
+
+    <div class="form-success" id="brochureSuccess" hidden>
+      <svg viewBox="0 0 24 24" width="40" height="40"><path d="M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z" fill="currentColor"/></svg>
+      <h3>Thank you!</h3>
+      <p>Our team will share the full brochure with you shortly.</p>
+    </div>
   </div>
 </section>
 
@@ -546,7 +583,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           How can I get pricing or brochure details for The Marq by Atlantis?
           <span class="faq-toggle"></span>
         </button>
-        <div class="faq-a"><p>Layouts for each configuration are available to view in the Residences section above. For pricing and a full brochure, share your details via the Enquire Now form and our team will reach out.</p></div>
+        <div class="faq-a"><p>Layouts for each configuration are available to view in the Residences section above. Use the <strong>Download Brochure</strong> button to request the full brochure, or <strong>Enquire for Pricing</strong> for an exact quote — our team will follow up with verified details.</p></div>
       </div>
       <div class="faq-item">
         <button class="faq-q" aria-expanded="false">
@@ -623,14 +660,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <a href="#faq">FAQ</a>
       <a href="guides/gmada-aerocity-explained.html">GMADA Aerocity Guide</a>
       <a href="guides/configurations-floor-plans-guide.html">Configurations &amp; Floor Plans Guide</a>
-      <a href="guides/rera-registration-buying-guide.html">RERA &amp; Buying Process Guide</a>
+      <a href="guides/rera-registration-buying-guide.html">RERA Registration</a>
       <a href="privacy-policy.html">Privacy Policy</a>
       <a href="terms.html">Terms</a>
     </nav>
   </div>
   <div class="container footer-legal">
-    <p class="rera-line">RERA Registration No. <strong>PBRERA-SAS81-PR1418-082026</strong> &mdash;
-      <a href="guides/rera-registration-buying-guide.html" style="color: var(--gold);">how to verify this &rarr;</a></p>
+    <p class="rera-line">RERA Registration No. <strong>PBRERA-SAS81-PR1418-082026</strong></p>
     <p>
       This is an independent information and enquiry website for The Marq by Atlantis and is
       not the official website of the developer. Visuals and information on this page are
@@ -663,13 +699,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <label for="modalEmail">Email <span class="optional">(optional)</span></label>
           <input type="email" id="modalEmail" name="email" autocomplete="email">
         </div>
-        <button type="submit" class="btn btn-gold btn-block">Enquire Now</button>
+        <button type="submit" class="btn btn-gold btn-block" id="modalSubmitBtn">Enquire Now</button>
       </form>
     </div>
     <div class="modal-success" id="modalSuccess" hidden>
       <svg viewBox="0 0 24 24" width="40" height="40"><path d="M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z" fill="currentColor"/></svg>
       <h3>Thank you!</h3>
-      <p>Our team will contact you shortly with verified details on The Marq by Atlantis.</p>
+      <p id="modalSuccessText">Our team will contact you shortly with verified details on The Marq by Atlantis.</p>
     </div>
   </div>
 </div>

@@ -3,6 +3,29 @@
 
   var LEAD_ENDPOINT = "https://script.google.com/macros/s/AKfycbzNC3OJcfzy2rOKHTqT0m3OGmWZ_R_OlMIv0X-ImnHhgk_4OnMsJ3Fzv6cnblgMjrM2-g/exec";
 
+  /* Modal copy per CTA type — none of these auto-download anything; every
+     path is a lead capture the sales team follows up on by phone/WhatsApp. */
+  var CTA_COPY = {
+    enquire: {
+      title: "Register Your Interest",
+      submit: "Enquire Now",
+      source: "modal",
+      success: "Our team will contact you shortly with verified details on The Marq by Atlantis."
+    },
+    brochure: {
+      title: "Get the Brochure",
+      submit: "Request Brochure",
+      source: "brochure-request",
+      success: "Thank you! Our team will share the full brochure with you shortly."
+    },
+    pricing: {
+      title: "Request Pricing",
+      submit: "Request Pricing",
+      source: "pricing-request",
+      success: "Thank you! Our team will get in touch with pricing details for The Marq by Atlantis."
+    }
+  };
+
   document.getElementById("year").textContent = new Date().getFullYear();
 
   /* ---------- Header scroll state ---------- */
@@ -68,6 +91,11 @@
   var modalClose = document.getElementById("modalClose");
   var modalOpenTriggers = document.querySelectorAll("[data-open-modal]");
   var modalOpenViaHistory = false;
+  var modalTitleEl = document.getElementById("modalTitle");
+  var modalSubmitBtn = document.getElementById("modalSubmitBtn");
+  var modalSuccessText = document.getElementById("modalSuccessText");
+  var modalSourceInput = document.querySelector("#modalForm input[name=source]");
+  var activeCta = "enquire";
 
   function openModal() {
     overlay.classList.add("open");
@@ -93,6 +121,19 @@
         document.body.classList.remove("nav-open");
         mobileNavOpenViaHistory = false;
       }
+      activeCta = CTA_COPY[btn.getAttribute("data-cta")] ? btn.getAttribute("data-cta") : "enquire";
+      var ctaCopy = CTA_COPY[activeCta];
+      if (modalSourceInput) modalSourceInput.value = ctaCopy.source;
+      if (modalTitleEl) modalTitleEl.textContent = ctaCopy.title;
+      if (modalSubmitBtn) modalSubmitBtn.textContent = ctaCopy.submit;
+      // Reset in case this modal was already submitted once this page load.
+      var modalFormEl = document.getElementById("modalForm");
+      var modalSuccessEl = document.getElementById("modalSuccess");
+      if (modalFormEl && modalSuccessEl && modalSuccessEl.hidden === false) {
+        modalFormEl.reset();
+        modalFormEl.hidden = false;
+        modalSuccessEl.hidden = true;
+      }
       openModal();
     });
   });
@@ -112,7 +153,7 @@
     return (v || "").replace(/[^\d]/g, "").replace(/^91/, "").slice(-10);
   }
 
-  function wireForm(form, successEl, isModal) {
+  function wireForm(form, successEl, isModal, onSuccess) {
     form.addEventListener("submit", function (e) {
       e.preventDefault();
       var data = new FormData(form);
@@ -142,6 +183,8 @@
       form.hidden = true;
       successEl.hidden = false;
 
+      if (onSuccess) onSuccess();
+
       if (isModal) {
         setTimeout(function () { closeModal(false); }, 2200);
       }
@@ -149,7 +192,10 @@
   }
 
   wireForm(document.getElementById("mainForm"), document.getElementById("mainSuccess"), false);
-  wireForm(document.getElementById("modalForm"), document.getElementById("modalSuccess"), true);
+  wireForm(document.getElementById("brochureForm"), document.getElementById("brochureSuccess"), false);
+  wireForm(document.getElementById("modalForm"), document.getElementById("modalSuccess"), true, function () {
+    if (modalSuccessText) modalSuccessText.textContent = CTA_COPY[activeCta].success;
+  });
 
   /* ---------- FAQ accordion ---------- */
   document.querySelectorAll(".faq-q").forEach(function (btn) {
