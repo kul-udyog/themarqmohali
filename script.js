@@ -3,8 +3,16 @@
 
   var LEAD_ENDPOINT = "https://script.google.com/macros/s/AKfycbzNC3OJcfzy2rOKHTqT0m3OGmWZ_R_OlMIv0X-ImnHhgk_4OnMsJ3Fzv6cnblgMjrM2-g/exec";
 
-  /* Modal copy per CTA type — none of these auto-download anything; every
-     path is a lead capture the sales team follows up on by phone/WhatsApp. */
+  /* Direct-contact numbers are intentionally kept out of visible page text —
+     they only ever live inside these two href targets, reached via the
+     Call Now / WhatsApp buttons after the lead-capture modal below. */
+  var CALL_TEL_HREF = "tel:+917696291827";
+  var WHATSAPP_HREF = "https://wa.me/917696291827?text=" +
+    encodeURIComponent("Hi, I'm interested in The Marq by Atlantis, Mohali. Could you share more details?");
+
+  /* Modal copy per CTA type — enquire/brochure/pricing are pure lead capture
+     the sales team follows up on; call/whatsapp also capture the lead first,
+     then hand off to the phone dialer / WhatsApp once the form is submitted. */
   var CTA_COPY = {
     enquire: {
       title: "Register Your Interest",
@@ -23,6 +31,18 @@
       submit: "Request Pricing",
       source: "pricing-request",
       success: "Thank you! Our team will get in touch with pricing details for The Marq by Atlantis."
+    },
+    call: {
+      title: "Before You Call",
+      submit: "Continue to Call",
+      source: "call-now",
+      success: "Thanks! Connecting your call now…"
+    },
+    whatsapp: {
+      title: "Before You WhatsApp",
+      submit: "Continue to WhatsApp",
+      source: "whatsapp",
+      success: "Thanks! Opening WhatsApp now…"
     }
   };
 
@@ -195,6 +215,13 @@
   wireForm(document.getElementById("brochureForm"), document.getElementById("brochureSuccess"), false);
   wireForm(document.getElementById("modalForm"), document.getElementById("modalSuccess"), true, function () {
     if (modalSuccessText) modalSuccessText.textContent = CTA_COPY[activeCta].success;
+    // Call/WhatsApp CTAs capture the lead first, then hand off to the
+    // dialer / WhatsApp immediately — no waiting on the modal's auto-close.
+    if (activeCta === "call") {
+      window.location.href = CALL_TEL_HREF;
+    } else if (activeCta === "whatsapp") {
+      window.open(WHATSAPP_HREF, "_blank", "noopener");
+    }
   });
 
   /* ---------- FAQ accordion ---------- */

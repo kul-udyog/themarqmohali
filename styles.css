@@ -226,6 +226,29 @@ a { color: inherit; }
 
 .header-cta { padding: 11px 22px; font-size: 12px; }
 
+/* ---------- Call / WhatsApp icon buttons ---------- */
+.header-contact { display: flex; gap: 8px; flex-shrink: 0; }
+.icon-cta {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  flex-shrink: 0;
+  background: transparent;
+  color: var(--ivory);
+  border: 1px solid rgba(245,239,230,.4);
+  cursor: pointer;
+  transition: transform .3s var(--ease), border-color .3s var(--ease), color .3s var(--ease), background .3s var(--ease);
+}
+.icon-cta svg { width: 18px; height: 18px; }
+.icon-cta:hover { border-color: var(--gold); color: var(--gold); background: rgba(201,169,97,.08); transform: translateY(-2px); }
+
+.mobile-nav-contact { display: flex; gap: 10px; width: 100%; max-width: 320px; margin-top: 4px; }
+.mobile-nav-contact .btn { flex: 1; padding: 12px 10px; font-size: 11px; gap: 6px; }
+
 .nav-toggle {
   display: none;
   flex-direction: column;
@@ -920,6 +943,9 @@ a { color: inherit; }
   position: fixed;
   left: 0; right: 0; bottom: 0;
   z-index: 150;
+  display: flex;
+  align-items: center;
+  gap: 10px;
   background: var(--ink);
   border-top: 1px solid rgba(201,169,97,.3);
   padding: 12px 16px calc(12px + env(safe-area-inset-bottom));
@@ -929,6 +955,8 @@ a { color: inherit; }
 }
 .sticky-cta.show { transform: translateY(0); }
 .sticky-cta .btn { padding: 14px 24px; }
+.sticky-cta .btn-block { flex: 1; }
+.sticky-icon { border-color: rgba(245,239,230,.3); }
 body.nav-open .sticky-cta { transform: translateY(100%) !important; }
 @media (min-width: 641px) {
   .sticky-cta { display: none; }
