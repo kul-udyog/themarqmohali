@@ -595,10 +595,11 @@ a { color: inherit; }
   display: flex;
   flex-direction: column;
   gap: 10px;
-  padding: 30px 22px;
+  padding: 0 22px 26px;
   border: 1px solid #ece5d8;
   border-bottom: 3px solid var(--gold);
   border-radius: var(--radius);
+  overflow: hidden;
   transition: transform .4s var(--ease), box-shadow .4s var(--ease);
 }
 .config-card:hover {
@@ -609,6 +610,44 @@ a { color: inherit; }
   background: var(--wine);
   border-color: var(--wine);
 }
+.config-thumb {
+  position: relative;
+  display: block;
+  width: calc(100% + 44px);
+  margin: 0 -22px 6px;
+  padding: 0;
+  border: none;
+  border-bottom: 1px solid #ece5d8;
+  cursor: zoom-in;
+  background: #faf8f4;
+  overflow: hidden;
+}
+.config-thumb img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1600/1085;
+  object-fit: contain;
+  transition: transform .5s var(--ease);
+}
+.config-thumb:hover img,
+.config-thumb:focus-visible img { transform: scale(1.04); }
+.config-thumb-zoom {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(20,6,10,.72);
+  color: var(--ivory);
+  pointer-events: none;
+}
+.config-thumb-zoom svg { width: 15px; height: 15px; }
+.config-card-feature .config-thumb { background: rgba(245,239,230,.06); border-bottom-color: rgba(245,239,230,.18); }
 .config-type {
   font-family: var(--font-display);
   font-size: 26px;
@@ -629,23 +668,26 @@ a { color: inherit; }
   margin-top: 4px;
 }
 .config-card-feature .config-towers { color: var(--ivory-dim); }
-.config-layout-link {
-  align-self: flex-start;
-  margin-top: 12px;
-  background: none;
-  border: none;
-  padding: 0;
+.config-price-btn {
+  align-self: stretch;
+  margin-top: 4px;
+  padding: 10px 14px;
   font-family: var(--font-label);
-  font-size: 13px;
+  font-size: 11px;
   font-weight: 600;
-  letter-spacing: .04em;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  text-align: center;
+  border-radius: calc(var(--radius) - 6px);
+  border: 1px solid var(--wine-accent);
+  background: transparent;
   color: var(--wine-accent);
   cursor: pointer;
-  transition: color .3s var(--ease), transform .3s var(--ease);
+  transition: background .3s var(--ease), color .3s var(--ease), border-color .3s var(--ease), transform .3s var(--ease);
 }
-.config-layout-link:hover { color: var(--wine); transform: translateX(3px); }
-.config-card-feature .config-layout-link { color: var(--gold); }
-.config-card-feature .config-layout-link:hover { color: var(--gold-bright); }
+.config-price-btn:hover { background: var(--wine-accent); color: var(--ivory); transform: translateY(-2px); }
+.config-card-feature .config-price-btn { border-color: rgba(245,239,230,.45); color: var(--ivory); }
+.config-card-feature .config-price-btn:hover { background: var(--gold); border-color: var(--gold); color: var(--wine-deep); }
 .config-note {
   font-size: 14px;
   color: #666;

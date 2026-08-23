@@ -115,6 +115,7 @@
   var modalSubmitBtn = document.getElementById("modalSubmitBtn");
   var modalSuccessText = document.getElementById("modalSuccessText");
   var modalSourceInput = document.querySelector("#modalForm input[name=source]");
+  var modalConfigInput = document.querySelector("#modalForm input[name=configuration]");
   var activeCta = "enquire";
 
   function openModal() {
@@ -143,8 +144,13 @@
       }
       activeCta = CTA_COPY[btn.getAttribute("data-cta")] ? btn.getAttribute("data-cta") : "enquire";
       var ctaCopy = CTA_COPY[activeCta];
+      // Per-configuration triggers (e.g. "Request Price" on a specific
+      // BHK card) carry which unit type the lead is interested in, so
+      // the sales team sees it directly in the captured lead.
+      var configLabel = btn.getAttribute("data-config") || "";
       if (modalSourceInput) modalSourceInput.value = ctaCopy.source;
-      if (modalTitleEl) modalTitleEl.textContent = ctaCopy.title;
+      if (modalConfigInput) modalConfigInput.value = configLabel;
+      if (modalTitleEl) modalTitleEl.textContent = configLabel ? (ctaCopy.title + " — " + configLabel) : ctaCopy.title;
       if (modalSubmitBtn) modalSubmitBtn.textContent = ctaCopy.submit;
       // Reset in case this modal was already submitted once this page load.
       var modalFormEl = document.getElementById("modalForm");
@@ -188,6 +194,7 @@
         email: data.get("email") || "",
         project: data.get("project"),
         source: data.get("source"),
+        configuration: data.get("configuration") || "",
         page: window.location.href,
         timestamp: new Date().toISOString()
       };
@@ -271,32 +278,48 @@
     }
   }
 
-  /* ---------- Lightbox (floor plans) ---------- */
+  /* ---------- Lightbox (floor plans, with back-button-closes-lightbox-only pattern) ---------- */
   var lightbox = document.getElementById("lightbox");
   var lightboxImg = document.getElementById("lightboxImg");
   var lightboxCaption = document.getElementById("lightboxCaption");
   var lightboxClose = document.getElementById("lightboxClose");
-  document.querySelectorAll("[data-lightbox]").forEach(function (el) {
-    el.addEventListener("click", function () {
-      lightboxImg.src = el.getAttribute("data-lightbox");
-      var caption = el.getAttribute("data-lightbox-caption") || "";
-      lightboxImg.alt = caption;
-      lightboxCaption.textContent = caption;
-      lightbox.classList.add("open");
-      document.body.style.overflow = "hidden";
-    });
-  });
-  function closeLightbox() {
+  var lightboxOpenViaHistory = false;
+  function openLightbox(src, caption) {
+    lightboxImg.src = src;
+    lightboxImg.alt = caption;
+    lightboxCaption.textContent = caption;
+    lightbox.classList.add("open");
+    document.body.style.overflow = "hidden";
+    if (!lightboxOpenViaHistory) {
+      history.pushState({ marqLightbox: true }, "");
+      lightboxOpenViaHistory = true;
+    }
+  }
+  function closeLightbox(fromPopState) {
     lightbox.classList.remove("open");
     lightboxImg.src = "";
     document.body.style.overflow = "";
+    if (lightboxOpenViaHistory && !fromPopState) {
+      history.back();
+    }
+    lightboxOpenViaHistory = false;
   }
-  lightboxClose.addEventListener("click", closeLightbox);
+  document.querySelectorAll("[data-lightbox]").forEach(function (el) {
+    el.addEventListener("click", function () {
+      var src = el.getAttribute("data-lightbox");
+      var caption = el.getAttribute("data-lightbox-caption") || "";
+      openLightbox(src, caption);
+    });
+  });
+  lightboxClose.addEventListener("click", function () { closeLightbox(false); });
   lightbox.addEventListener("click", function (e) {
-    if (e.target === lightbox) closeLightbox();
+    if (e.target === lightbox) closeLightbox(false);
+  });
+  window.addEventListener("popstate", function () {
+    if (lightbox.classList.contains("open")) closeLightbox(true);
   });
   document.addEventListener("keydown", function (e) {
-    if (e.key === "Escape" && lightbox.classList.contains("open")) closeLightbox();
+    if (e.key === "Escape" && lightbox.classList.contains("open")) closeLightbox(false);
   });
 
   /* ---------- Scroll reveal ---------- */
