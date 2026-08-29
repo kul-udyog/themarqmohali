@@ -207,6 +207,17 @@
         body: JSON.stringify(payload)
       }).catch(function () {});
 
+      // Push a lead-capture event to GTM's dataLayer for every successful
+      // form submission (main enquiry form, brochure form, and every
+      // modal CTA variant) so Google Ads / GA4 can measure conversions
+      // regardless of which button started the flow.
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push({
+        event: "generate_lead",
+        lead_source: payload.source,
+        lead_configuration: payload.configuration
+      });
+
       form.hidden = true;
       successEl.hidden = false;
 
