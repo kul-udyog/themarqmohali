@@ -1,0 +1,4 @@
+# The brochure PDF must never be committed to this repo — it should only
+# ever be shared manually with a lead, never auto-downloadable from the
+# live site or discoverable via a raw GitHub file URL.
+assets/downloads/
