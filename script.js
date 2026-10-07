@@ -118,9 +118,46 @@
   var modalConfigInput = document.querySelector("#modalForm input[name=configuration]");
   var activeCta = "enquire";
 
+  /* Keep the popup above the phone's on-screen keyboard: size the overlay to
+     the *visible* viewport (which shrinks when the keyboard opens), so the
+     form is centred in the part of the screen that is still showing and
+     nothing is hidden behind the keyboard. */
+  var modalBox = overlay.querySelector(".modal");
+  function fitModalToVisibleViewport() {
+    if (!overlay.classList.contains("open")) return;
+    var vv = window.visualViewport;
+    var h = vv ? vv.height : window.innerHeight;
+    var top = vv ? vv.offsetTop : 0;
+    overlay.style.top = top + "px";
+    overlay.style.bottom = "auto";
+    overlay.style.height = h + "px";
+    // Keyboard open (visible area clearly shorter than the page): use a
+    // compact layout so the whole form, including the submit button, fits.
+    overlay.classList.toggle("kb-open", h < window.innerHeight - 100);
+    if (modalBox) modalBox.style.maxHeight = Math.max(220, h - 24) + "px";
+    // Make sure the field being typed in stays visible inside the popup.
+    var el = document.activeElement;
+    if (el && modalBox && modalBox.contains(el) && el.scrollIntoView) {
+      el.scrollIntoView({ block: "nearest" });
+    }
+  }
+  function resetModalFit() {
+    overlay.style.top = "";
+    overlay.style.bottom = "";
+    overlay.style.height = "";
+    overlay.classList.remove("kb-open");
+    if (modalBox) modalBox.style.maxHeight = "";
+  }
+  if (window.visualViewport) {
+    window.visualViewport.addEventListener("resize", fitModalToVisibleViewport);
+    window.visualViewport.addEventListener("scroll", fitModalToVisibleViewport);
+  }
+  window.addEventListener("resize", fitModalToVisibleViewport);
+
   function openModal() {
     overlay.classList.add("open");
     document.body.style.overflow = "hidden";
+    fitModalToVisibleViewport();
     if (!modalOpenViaHistory) {
       history.pushState({ marqModal: true }, "");
       modalOpenViaHistory = true;
@@ -128,6 +165,7 @@
   }
   function closeModal(fromPopState) {
     overlay.classList.remove("open");
+    resetModalFit();
     document.body.style.overflow = "";
     if (modalOpenViaHistory && !fromPopState) {
       history.back();
@@ -168,6 +206,7 @@
       if (firstField) {
         try { firstField.focus({ preventScroll: true }); } catch (err) { firstField.focus(); }
       }
+      setTimeout(fitModalToVisibleViewport, 300);
     });
   });
   modalClose.addEventListener("click", function () { closeModal(false); });
@@ -198,7 +237,7 @@
       var payload = {
         name: data.get("name"),
         mobile: mobile,
-        email: data.get("email") || "",
+        email: "", // email field removed from the forms; column kept so the lead sheet layout stays the same
         project: data.get("project"),
         source: data.get("source"),
         configuration: data.get("configuration") || "",

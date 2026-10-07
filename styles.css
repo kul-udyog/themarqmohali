@@ -1051,3 +1051,15 @@ body.nav-open .sticky-cta { transform: translateY(100%) !important; }
   .callback-fields { grid-template-columns: 1fr; }
   .callback-fields .btn { width: 100%; }
 }
+
+/* ---------- Popup form while the phone keyboard is open ---------- */
+.modal-overlay { overscroll-behavior: contain; }
+.modal-overlay.kb-open { padding: 8px 12px; }
+.modal-overlay.kb-open .modal { padding: 18px 18px 16px; animation: none; opacity: 1; transform: none; }
+.modal-overlay.kb-open .modal .eyebrow { display: none; }
+.modal-overlay.kb-open .modal h3 { font-size: 18px; margin: 0 28px 10px 0; }
+.modal-overlay.kb-open .field { margin-bottom: 10px; }
+.modal-overlay.kb-open .field label { margin-bottom: 4px; font-size: 11px; }
+.modal-overlay.kb-open .field input { padding: 10px 12px; }
+.modal-overlay.kb-open .btn-block { padding-top: 12px; padding-bottom: 12px; }
+.modal-overlay.kb-open .modal-close { top: 6px; right: 8px; }
