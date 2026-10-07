@@ -1003,3 +1003,21 @@ body.nav-open .sticky-cta { transform: translateY(100%) !important; }
 @media (min-width: 641px) {
   .sticky-cta { display: none; }
 }
+
+/* ---------- Brochure renders & plan galleries ---------- */
+.render-band { background: var(--ivory); padding-top: 0; padding-bottom: 40px; }
+.render-grid { display: grid; grid-template-columns: 3fr 2fr; gap: 4px; }
+.render-grid figure { margin: 0; overflow: hidden; }
+.render-grid img { width: 100%; height: 100%; object-fit: cover; display: block; aspect-ratio: 16/10; }
+.render-note, .plan-note { max-width: var(--container); margin: 12px auto 0; padding: 0 24px; font-size: 12px; color: #7a6f63; }
+.layouts-block { margin-top: 48px; }
+.layouts-title { font-family: var(--font-display); font-size: 24px; margin: 0 0 16px; }
+.plan-gallery--grid { grid-template-columns: repeat(3, 1fr); padding: 0; margin-top: 0; gap: 10px; }
+.master-plan .plan-gallery--grid { padding: 0 24px; margin-top: 10px; }
+.commercial-sco .plan-gallery--grid { margin-top: 32px; padding: 0 24px; }
+.plan-gallery--two { grid-template-columns: repeat(2, 1fr); }
+.plan-thumb--contain { border: 1px solid #e6dfd2; }
+.plan-thumb--contain img { object-fit: contain; aspect-ratio: 4/3; padding: 10px 10px 44px; background: #fff; }
+.plan-thumb--contain span { color: #3a1218; background: #fff; border-top: 1px solid #efe8dc; font-size: 15px; padding: 10px 14px; }
+@media (max-width: 900px) { .plan-gallery--grid { grid-template-columns: repeat(2, 1fr); } .render-grid { grid-template-columns: 1fr; } }
+@media (max-width: 520px) { .plan-gallery--grid, .plan-gallery--two { grid-template-columns: 1fr; } }
