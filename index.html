@@ -251,6 +251,35 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   </a>
 </section>
 
+<!-- ================= GET A CALLBACK ================= -->
+<section class="callback-band" id="callback" aria-labelledby="callbackTitle">
+  <div class="container callback-inner">
+    <div class="callback-copy">
+      <p class="eyebrow">Get a Callback</p>
+      <h2 id="callbackTitle">Prefer a call? Leave your number.</h2>
+      <p>Share your name and mobile number and our team will call you back shortly.</p>
+    </div>
+    <form class="callback-form" id="callbackForm" novalidate>
+      <input type="hidden" name="project" value="The Marq by Atlantis">
+      <input type="hidden" name="source" value="callback-request">
+      <input type="hidden" name="configuration" value="">
+      <div class="callback-fields">
+        <label class="sr-only" for="callbackName">Your name</label>
+        <input type="text" id="callbackName" name="name" placeholder="Your name" required autocomplete="name" autocapitalize="words" enterkeyhint="next">
+        <label class="sr-only" for="callbackMobile">Mobile number</label>
+        <input type="tel" id="callbackMobile" name="mobile" placeholder="Mobile number" required autocomplete="tel" inputmode="tel" pattern="[0-9+\s\-]{10,16}" title="Enter a 10-digit mobile number" enterkeyhint="send">
+        <button type="submit" class="btn btn-gold">Get a Callback</button>
+      </div>
+      <p class="callback-note">By submitting, you agree to be contacted regarding The Marq by Atlantis.</p>
+    </form>
+    <div class="callback-success" id="callbackSuccess" hidden>
+      <svg viewBox="0 0 24 24" width="36" height="36" aria-hidden="true"><path d="M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z" fill="currentColor"/></svg>
+      <h3>Thank you!</h3>
+      <p>Our team will call you back shortly.</p>
+    </div>
+  </div>
+</section>
+
 <!-- ================= OVERVIEW ================= -->
 <section class="section overview" id="overview">
   <div class="container overview-grid">
@@ -808,11 +837,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <input type="hidden" name="configuration" value="">
         <div class="field">
           <label for="modalName">Full Name</label>
-          <input type="text" id="modalName" name="name" required autocomplete="name">
+          <input type="text" id="modalName" name="name" required autocomplete="name" autocapitalize="words" enterkeyhint="next">
         </div>
         <div class="field">
           <label for="modalMobile">Mobile Number</label>
-          <input type="tel" id="modalMobile" name="mobile" required autocomplete="tel">
+          <input type="tel" id="modalMobile" name="mobile" required autocomplete="tel" inputmode="tel" enterkeyhint="send">
         </div>
         <div class="field">
           <label for="modalEmail">Email <span class="optional">(optional)</span></label>

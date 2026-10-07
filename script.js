@@ -161,6 +161,13 @@
         modalSuccessEl.hidden = true;
       }
       openModal();
+      // Focus the first field synchronously inside the click handler so
+      // phones open the on-screen keyboard (and offer autofill) right away —
+      // mobile browsers only allow this when it happens in the tap itself.
+      var firstField = document.getElementById("modalName");
+      if (firstField) {
+        try { firstField.focus({ preventScroll: true }); } catch (err) { firstField.focus(); }
+      }
     });
   });
   modalClose.addEventListener("click", function () { closeModal(false); });
@@ -231,6 +238,18 @@
 
   wireForm(document.getElementById("mainForm"), document.getElementById("mainSuccess"), false);
   wireForm(document.getElementById("brochureForm"), document.getElementById("brochureSuccess"), false);
+  var callbackFormEl = document.getElementById("callbackForm");
+  if (callbackFormEl) {
+    wireForm(callbackFormEl, document.getElementById("callbackSuccess"), false);
+    // "Next" on the name field jumps straight to the mobile number.
+    var cbName = document.getElementById("callbackName");
+    var cbMobile = document.getElementById("callbackMobile");
+    if (cbName && cbMobile) {
+      cbName.addEventListener("keydown", function (e) {
+        if (e.key === "Enter") { e.preventDefault(); cbMobile.focus(); }
+      });
+    }
+  }
   wireForm(document.getElementById("modalForm"), document.getElementById("modalSuccess"), true, function () {
     if (modalSuccessText) modalSuccessText.textContent = CTA_COPY[activeCta].success;
     // Call/WhatsApp CTAs capture the lead first, then hand off to the
